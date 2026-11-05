@@ -1,0 +1,306 @@
+{
+  "run": {
+    "reset_at": "2026-11-04 09:58:27 PM ET",
+    "shop_date": "2026-08-31",
+    "opening_checking": 3400.0,
+    "ending_checking": 160.0,
+    "ending_matches_cash_accounts": true,
+    "source": "output/audit_trail.json records after the reset, and data/campus_customs_new.db"
+  },
+  "tickets": [
+    {
+      "id": 101,
+      "final_status": "resolved",
+      "board_state": "resolved",
+      "boss_status_at_end_of_run": "waiting_on_approval",
+      "run_id": "8bc778928099",
+      "ran": "2026-11-04 09:58:30 PM ET to 2026-11-04 09:58:44 PM ET",
+      "short_outcome": "The order cannot be filled now: CC-TEE-WHITE size S is out of stock. Request human approval of the $840 invoice payment to clear Bulldog Print Co's shipping block; do not promise a delivery date.",
+      "summary": "Inventory found 0 on hand for size S, leaving the 1-tee order short by 1. Bulldog Print Co's invoice 501 for $840 is open and 3 days overdue as of 2026-08-31 and blocks shipment. Accounting reports $3,400 cash and prepared request #1; it is pending approval, not paid. The vendor lead time is 5 days, making 2026-09-05 the earliest possible delivery only if the block is cleared and shipment proceeds. A customer reply is drafted, not sent.",
+      "agents": [
+        {
+          "agent": "boss",
+          "shown_as": "Maurie McInnis (Boss)",
+          "contribution": "Read ticket 101, set it in_progress, sent Inventory then Accounting then Customer Service, and set it waiting_on_approval with the $840 payment as the open item.",
+          "delegated_to": [
+            "inventory",
+            "accounting",
+            "customer_service"
+          ],
+          "mcp_tools": {
+            "get_ticket": 1,
+            "update_ticket": 2,
+            "list_payments": 1
+          }
+        },
+        {
+          "agent": "inventory",
+          "shown_as": "Geoffrey Chatas (Inventory)",
+          "contribution": "Found 0 CC-TEE-WHITE in size S (short 1); identified Bulldog Print Co (5-day lead) as the vendor and that open invoice 501 ($840, 3 days overdue) blocks shipping.",
+          "delegated_to": [],
+          "mcp_tools": {
+            "get_ticket": 1,
+            "check_stock": 1,
+            "list_vendors": 1,
+            "check_vendor_invoices": 1
+          }
+        },
+        {
+          "agent": "accounting",
+          "shown_as": "Katrina Spencer (Accounting)",
+          "contribution": "Confirmed invoice 501 is open and overdue, checked checking ($3,400), and prepared payment request #1 for $840 for human approval.",
+          "delegated_to": [],
+          "mcp_tools": {
+            "get_desk": 1,
+            "get_ticket": 1,
+            "get_invoice": 1,
+            "get_cash_balance": 1,
+            "list_payments": 1,
+            "check_vendor_invoices": 1,
+            "prepare_payment": 1
+          }
+        },
+        {
+          "agent": "customer_service",
+          "shown_as": "Renee Kopkowski (Customer Service)",
+          "contribution": "Drafted a reply to Tauhid Zaman: out of stock in S, restock on hold, Sept 5 the earliest possible date, no promise. Not sent.",
+          "delegated_to": [],
+          "mcp_tools": {
+            "get_ticket": 1
+          }
+        }
+      ],
+      "delegations": [
+        "boss -> inventory",
+        "boss -> accounting",
+        "boss -> customer_service"
+      ],
+      "payments_prepared": [
+        {
+          "request_id": 1,
+          "kind": "invoice",
+          "ref_id": 501,
+          "payee": "Bulldog Print Co",
+          "amount": 840.0,
+          "reason": "Pay overdue Bulldog Print Co invoice 501 to clear the vendor shipping block for CC-TEE-WHITE size S."
+        }
+      ],
+      "human_approvals": [
+        {
+          "type": "approval",
+          "request_id": 1,
+          "approved_by": "Peter Morgan",
+          "time": "2026-11-04 09:58:50 PM ET",
+          "kind": "invoice",
+          "payee": "Bulldog Print Co",
+          "amount": 840.0,
+          "balance_before": 3400.0,
+          "balance_after": 2560.0,
+          "tables_updated": {
+            "invoice": {
+              "id": 501,
+              "status": "paid"
+            }
+          }
+        }
+      ],
+      "customer_drafts": [
+        {
+          "to": "Tauhid Zaman",
+          "subject": "Update on your Bulldog tee",
+          "body": "Hi Tauhid,\n\nWe’re currently out of the white Bulldog tee in size S, so we can’t fill your order today. Our supplier’s restock is on hold while a payment is awaiting approval and processing. If that hold is cleared and the shipment proceeds, September 5 is the earliest it could arrive, but we can’t promise that date yet.\n\nWe’ll share an update when we have a confirmed restock timeline.\n\nBest,\nCampus Customs"
+        }
+      ],
+      "open_questions": [
+        "A human must approve payment request #1 for $840. The invoice is not paid, so supplier shipment remains blocked.",
+        "A delivery date is unconfirmed; 2026-09-05 is the earliest possible date only if the payment is approved and shipment proceeds."
+      ],
+      "usage": {
+        "model_calls": 18,
+        "tokens": 37275,
+        "tool_calls": 16,
+        "delegations": 3,
+        "model": "gpt-6-luna (Azure: gpt-6-luna-global)"
+      }
+    },
+    {
+      "id": 102,
+      "final_status": "resolved",
+      "board_state": "resolved",
+      "boss_status_at_end_of_run": "resolved",
+      "run_id": "6d0a62aa5487",
+      "ran": "2026-11-04 09:58:56 PM ET to 2026-11-04 09:59:18 PM ET",
+      "short_outcome": "Rent for lease 1 was due in two days and was paid on 2026-08-31 after human approval. Resolve the ticket.",
+      "summary": "Today is 2026-08-31. Facilities confirmed rent of $2,400 to Elm City Properties is due 2026-09-02, matching the notice. Accounting prepared request #2; list_payments shows it was approved and paid on 2026-08-31 (payment #2). Ticket status is resolved; no payment is pending.",
+      "agents": [
+        {
+          "agent": "boss",
+          "shown_as": "Maurie McInnis (Boss)",
+          "contribution": "Read ticket 102, checked the shop date, sent Facilities; after the human approved the rent, confirmed it in list_payments and set the ticket resolved.",
+          "delegated_to": [
+            "facilities"
+          ],
+          "mcp_tools": {
+            "get_ticket": 1,
+            "update_ticket": 2,
+            "get_desk": 1,
+            "list_payments": 1
+          }
+        },
+        {
+          "agent": "accounting",
+          "shown_as": "Katrina Spencer (Accounting)",
+          "contribution": "Checked checking ($2,560) and prepared rent request #2 for $2,400 for human approval, noting $160 would remain (no negative balance).",
+          "delegated_to": [],
+          "mcp_tools": {
+            "get_desk": 1,
+            "get_lease": 1,
+            "get_cash_balance": 1,
+            "list_payments": 1,
+            "prepare_payment": 1
+          }
+        },
+        {
+          "agent": "facilities",
+          "shown_as": "Mike Bellamy (Facilities)",
+          "contribution": "Looked up lease 1 ($2,400 to Elm City Properties, due 2026-09-02, 2 days away); confirmed the notice matches, and asked Accounting to prepare the rent.",
+          "delegated_to": [
+            "accounting"
+          ],
+          "mcp_tools": {
+            "get_ticket": 1,
+            "get_lease": 1
+          }
+        }
+      ],
+      "delegations": [
+        "boss -> facilities",
+        "facilities -> accounting"
+      ],
+      "payments_prepared": [
+        {
+          "request_id": 2,
+          "note": "prepared during the run and approved before the Boss finished"
+        }
+      ],
+      "human_approvals": [
+        {
+          "type": "approval",
+          "request_id": 2,
+          "approved_by": "Peter Morgan",
+          "time": "2026-11-04 09:59:10 PM ET",
+          "kind": "rent",
+          "payee": "Elm City Properties",
+          "amount": 2400.0,
+          "balance_before": 2560.0,
+          "balance_after": 160.0,
+          "tables_updated": {
+            "lease": {
+              "id": 1,
+              "paid_through": "2026-09-02",
+              "next_due": "2026-10-02"
+            }
+          }
+        }
+      ],
+      "customer_drafts": [],
+      "open_questions": [],
+      "usage": {
+        "model_calls": 14,
+        "tokens": 28099,
+        "tool_calls": 12,
+        "delegations": 2,
+        "model": "gpt-6-luna (Azure: gpt-6-luna-global)"
+      }
+    },
+    {
+      "id": 103,
+      "final_status": "needs_human",
+      "board_state": "resolved",
+      "boss_status_at_end_of_run": "needs_human",
+      "run_id": "a9ee9a229825",
+      "ran": "2026-11-04 09:59:21 PM ET to 2026-11-04 10:00:36 PM ET",
+      "short_outcome": "Do not commit a discount or restock yet: the requester did not specify a discount rate or whether they prefer a partial fill or to wait for all 20. Eight size M hoodies are available now; the remaining 12 would require a restock.",
+      "summary": "Inventory confirmed 8 of 20 CC-HOOD-NAVY size M are on hand, a shortfall of 12. Bulldog Print Co can ship with a 5-day lead time, making September 5, 2026 the earliest possible restock date; the vendor has no open unpaid invoice. Accounting reported $58 current price and $22 unit cost, so any price below $22 would be below cost; no specific discount was provided, and the $264 restock cost was only an estimate, not a confirmed purchase-order amount. No restock or payment was prepared. Ticket payment lookup shows no payment requests for this ticket. A customer reply draft asks for the requested discount and fulfillment preference, without promising delivery.",
+      "agents": [
+        {
+          "agent": "boss",
+          "shown_as": "Maurie McInnis (Boss)",
+          "contribution": "Read ticket 103, sent Inventory then Accounting then Customer Service; prepared no payment and set the ticket needs_human with three open questions (discount rate, partial fill, PO amount).",
+          "delegated_to": [
+            "inventory",
+            "accounting",
+            "customer_service"
+          ],
+          "mcp_tools": {
+            "get_ticket": 1,
+            "get_desk": 1,
+            "update_ticket": 2,
+            "list_payments": 1
+          }
+        },
+        {
+          "agent": "inventory",
+          "shown_as": "Geoffrey Chatas (Inventory)",
+          "contribution": "Found 8 CC-HOOD-NAVY in size M against 20 (short 12); Bulldog Print Co can ship now (invoice 501 was paid on ticket 101), 5-day lead, Sept 5 the earliest. Asked again by Accounting, it re-confirmed the same facts and the $264 restock cost. Its first list_vendors call had made-up arguments and was rejected; the retry was correct.",
+          "delegated_to": [],
+          "mcp_tools": {
+            "get_ticket": 2,
+            "check_stock": 2,
+            "get_desk": 1,
+            "list_vendors": 2,
+            "check_vendor_invoices": 2
+          }
+        },
+        {
+          "agent": "accounting",
+          "shown_as": "Katrina Spencer (Accounting)",
+          "contribution": "Asked Inventory to confirm stock and cost, then ran check_margin three times: $22 unit cost is break-even, $36/unit ($720) margin at the $58 list price, $30.20/unit ($604) at an example 10% discount. Called the $264 restock an estimate and prepared no purchase order. Did not check cash.",
+          "delegated_to": [
+            "inventory"
+          ],
+          "mcp_tools": {
+            "get_desk": 1,
+            "check_margin": 3
+          }
+        },
+        {
+          "agent": "customer_service",
+          "shown_as": "Renee Kopkowski (Customer Service)",
+          "contribution": "Drafted a reply to Yale AI Club: 8 available now at $58, 12 need a restock (Sept 5 earliest, not promised), and asked what discount they want and whether they prefer 8 now + 12 later or all 20 at once. Not sent.",
+          "delegated_to": [],
+          "mcp_tools": {
+            "get_ticket": 1
+          }
+        }
+      ],
+      "delegations": [
+        "boss -> inventory",
+        "boss -> accounting",
+        "accounting -> inventory",
+        "boss -> customer_service"
+      ],
+      "payments_prepared": [],
+      "human_approvals": [],
+      "customer_drafts": [
+        {
+          "to": "Yale AI Club",
+          "subject": "Re: Bulk hoodie discount",
+          "body": "Hi Yale AI Club,\n\nWe have 8 navy hoodies in size M available now. The current price is $58 per hoodie. The other 12 would require a restock; the earliest possible availability is September 5, but we can’t promise a restock or delivery date.\n\nCould you let us know what discount you’re requesting and whether you’d prefer the 8 available now with the remaining 12 later, or to wait for all 20?\n\nBest,\nCampus Customs"
+        }
+      ],
+      "open_questions": [
+        "What discount rate is Yale AI Club requesting?",
+        "Would they prefer 8 now and 12 later, or to wait for all 20?",
+        "If restock is desired, a confirmed purchase-order amount is still needed."
+      ],
+      "usage": {
+        "model_calls": 26,
+        "tokens": 53583,
+        "tool_calls": 19,
+        "delegations": 4,
+        "model": "gpt-6-luna (Azure: gpt-6-luna-global)"
+      }
+    }
+  ]
+}

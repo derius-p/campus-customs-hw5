@@ -1,0 +1,209 @@
+{
+  "description": "Smoke test of the campus-customs MCP server, run from Claude Code (the vibe coder) connected via .mcp.json. Each tool was called over MCP; its output was then compared field by field with data/campus_customs_new.db.",
+  "tested_at": "2026-11-04T01:36:37+00:00",
+  "mcp_server": "campus-customs (mcp_server/server.py)",
+  "database": "data/campus_customs_new.db",
+  "student_prompt_to_vibe_coder": "ok i restarted. Proceed with testing each of the three tools. Save the evidence of testing in output/mcp_smoke.json. Include for each tool the prompt sent to the vibe coder, the tool name, and the tool output (check it matches the values in the new database)",
+  "tests": [
+    {
+      "tool": "check_stock",
+      "ticket": 101,
+      "prompt": "For ticket 101, check how many Classic Bulldog Tees (CC-TEE-WHITE) we have in size S.",
+      "arguments": {
+        "sku": "CC-TEE-WHITE",
+        "size": "S"
+      },
+      "output": {
+        "sku": "CC-TEE-WHITE",
+        "name": "Classic Bulldog Tee",
+        "found": true,
+        "stock": [
+          {
+            "size": "S",
+            "qty": 0,
+            "location": "Aisle B",
+            "in_stock": false
+          }
+        ],
+        "total_qty": 0,
+        "unit_cost": 8,
+        "list_price": 28
+      },
+      "database_check": [
+        {
+          "field": "name",
+          "tool": "Classic Bulldog Tee",
+          "database": "Classic Bulldog Tee",
+          "match": true
+        },
+        {
+          "field": "size S qty",
+          "tool": 0,
+          "database": 0,
+          "match": true
+        },
+        {
+          "field": "location",
+          "tool": "Aisle B",
+          "database": "Aisle B",
+          "match": true
+        },
+        {
+          "field": "unit_cost",
+          "tool": 8,
+          "database": 8.0,
+          "match": true
+        },
+        {
+          "field": "list_price",
+          "tool": 28,
+          "database": 28.0,
+          "match": true
+        }
+      ],
+      "matches_database": true
+    },
+    {
+      "tool": "check_vendor_invoices",
+      "ticket": "101 (and 103)",
+      "prompt": "Can Bulldog Print Co (vendor 1) restock the tee, or is it blocked by an unpaid invoice?",
+      "arguments": {
+        "vendor_id": 1
+      },
+      "output": {
+        "id": 1,
+        "name": "Bulldog Print Co",
+        "specialty": "apparel reprint",
+        "lead_days": 5,
+        "found": true,
+        "today": "2026-08-31",
+        "invoices": [
+          {
+            "id": 501,
+            "amount": 840,
+            "due_date": "2026-08-28",
+            "status": "open",
+            "description": "Rush reprint CC-TEE-WHITE S",
+            "days_until_due": -3,
+            "overdue": true
+          }
+        ],
+        "open_amount": 840,
+        "will_ship": false,
+        "note": "Blocked: 1 open unpaid invoice(s); the vendor won't ship until they are paid."
+      },
+      "database_check": [
+        {
+          "field": "vendor name",
+          "tool": "Bulldog Print Co",
+          "database": "Bulldog Print Co",
+          "match": true
+        },
+        {
+          "field": "specialty",
+          "tool": "apparel reprint",
+          "database": "apparel reprint",
+          "match": true
+        },
+        {
+          "field": "lead_days",
+          "tool": 5,
+          "database": 5,
+          "match": true
+        },
+        {
+          "field": "invoice id",
+          "tool": 501,
+          "database": 501,
+          "match": true
+        },
+        {
+          "field": "invoice amount",
+          "tool": 840,
+          "database": 840.0,
+          "match": true
+        },
+        {
+          "field": "invoice due_date",
+          "tool": "2026-08-28",
+          "database": "2026-08-28",
+          "match": true
+        },
+        {
+          "field": "invoice status",
+          "tool": "open",
+          "database": "open",
+          "match": true
+        },
+        {
+          "field": "today",
+          "tool": "2026-08-31",
+          "database": "2026-08-31",
+          "match": true
+        }
+      ],
+      "matches_database": true,
+      "derived_values": {
+        "days_until_due": "2026-08-28 minus today 2026-08-31 = -3 (overdue)",
+        "will_ship": "false because invoice 501 is open"
+      }
+    },
+    {
+      "tool": "get_lease",
+      "ticket": 102,
+      "prompt": "For ticket 102, how much rent is due on lease 1, to whom, and when?",
+      "arguments": {
+        "lease_id": 1
+      },
+      "output": {
+        "id": 1,
+        "space_name": "Chapel Street shop",
+        "landlord": "Elm City Properties",
+        "monthly_rent": 2400,
+        "next_due": "2026-09-02",
+        "notes": null,
+        "found": true,
+        "today": "2026-08-31",
+        "days_until_due": 2,
+        "overdue": false
+      },
+      "database_check": [
+        {
+          "field": "space_name",
+          "tool": "Chapel Street shop",
+          "database": "Chapel Street shop",
+          "match": true
+        },
+        {
+          "field": "landlord",
+          "tool": "Elm City Properties",
+          "database": "Elm City Properties",
+          "match": true
+        },
+        {
+          "field": "monthly_rent",
+          "tool": 2400,
+          "database": 2400.0,
+          "match": true
+        },
+        {
+          "field": "next_due",
+          "tool": "2026-09-02",
+          "database": "2026-09-02",
+          "match": true
+        },
+        {
+          "field": "today",
+          "tool": "2026-08-31",
+          "database": "2026-08-31",
+          "match": true
+        }
+      ],
+      "matches_database": true,
+      "derived_values": {
+        "days_until_due": "2026-09-02 minus today 2026-08-31 = 2"
+      }
+    }
+  ],
+  "all_match": true
+}

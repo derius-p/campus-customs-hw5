@@ -1,0 +1,48 @@
+/* Yale New is licensed artwork: the files live in public/fonts/ locally and are not in the repository
+   (see .gitignore). Without them the board falls back to Libre Caslon / Georgia. */
+@font-face { font-family: 'YaleNew'; src: url('/fonts/YaleNew-Roman.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'YaleNew'; src: url('/fonts/YaleNew-Italic.otf') format('opentype'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'YaleNew'; src: url('/fonts/YaleNew-Bold.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'YaleNew'; src: url('/fonts/YaleNew-BoldItalic.otf') format('opentype'); font-weight: 700; font-style: italic; font-display: swap; }
+
+/* Same palette and type as the HW4 Campus Customs storefront:
+   Yale Blue on warm ivory, deep navy header, a quiet red for problems.
+   Type: Yale (YaleNew) for the wordmark, headings and money; Oswald (varsity caps) for labels; Inter for body. */
+:root {
+  --yale-blue: #00356b;
+  --yale-blue-deep: #00224a;
+  --yale-blue-light: #286dc0;
+  --sky: #d9e7f7;
+  --ink: #14213d;
+  --ink-2: #3a4458;
+  --muted: #5d6677;
+  --line: #e5dfd2;
+  --paper: #ffffff;
+  --bg: #faf8f3;
+  --paper-2: #f2eee4;
+  --white: #ffffff;
+  /* names the board's stylesheet uses, mapped onto the Yale palette */
+  --navy: var(--yale-blue-deep);
+  --navy-2: var(--yale-blue);
+  --gold: var(--yale-blue-light);
+  --green: #2e7d4f;
+  --red: #b5121b;
+  --amber: #b86e00;
+  --serif: 'YaleNew', 'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+  --varsity: 'Oswald', 'Arial Narrow', sans-serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(20, 33, 61, 0.06), 0 8px 24px rgba(20, 33, 61, 0.08);
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; min-height: 100%; }
+body { background: var(--bg); }
+h1, h2, h3 { font-family: var(--serif); color: var(--yale-blue-deep); }
+button { font: inherit; }
+input { font: inherit; }
+code, pre { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; }

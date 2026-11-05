@@ -1,0 +1,20 @@
+# Secrets: never commit. Copy .env.example to .env and put your own key in it.
+.env
+.env.*
+!.env.example
+
+# Environments, dependencies, build output, caches
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+dist/
+*.json.tmp
+.DS_Store
+
+# Licensed Yale typeface and logo artwork (not redistributed). The board falls back to other fonts
+# and a text wordmark without them.
+frontend/public/fonts/
+frontend/public/brand/
+
+# Note: data/*.db are committed on purpose (the original and the working copy), so graders can run the app.
