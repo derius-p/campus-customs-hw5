@@ -124,3 +124,9 @@
 **Second prompt:**
 
 > yes do all 3
+
+## Problem 11: Submit to GitHub
+
+**Prompt:**
+
+> Problem 11: Submit to GitHub. Time to submit to a public github repository so graders of the assignment can clone it. include both database files under data/ and of course don't push my real .env. Put the repository url in output/github_url.txt and I will post it to canvas. The README should explain the copying of the original db to the working copy for a clean run, starting the mcp server, starting the backed, starting the react board, and reseting the db before a full three-ticket run
